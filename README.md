@@ -35,7 +35,7 @@ Post "https://oauth2.googleapis.com/token": unexpected EOF: request failed...
 
 ### 💡 How It Works
 
-This launcher uses dynamic process-level environment injection:
+This launcher adopts a **"Process-Level Environment Injection + Dynamic Adaptation"** approach:
 
 1. **Dynamic Registry Detection**: Checks Windows registry (`HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings`) in real-time to retrieve the active proxy port (`7890`, `7897`, `7898`, etc.).
 2. **Process Inheritance**: Injects proxy environment variables into the Antigravity IDE process on launch. All spawned child processes (including `language_server`) automatically inherit them.
@@ -123,7 +123,7 @@ Post "https://oauth2.googleapis.com/token": unexpected EOF: request failed...
 
 ### 💡 解决方案与架构
 
-本启动器采用**“进程级环境注入 + 动态适配”**的方式：
+本启动器采用 **“进程级环境注入 + 动态适配”** 的架构方案：
 
 1. **自动读取系统代理**：在启动时实时检测 Windows 注册表中的代理开关状态与端口（无论是 7890、7897 还是 7898）。
 2. **父子进程环境变量继承**：为 Antigravity IDE 主进程注入 `HTTP_PROXY` / `HTTPS_PROXY`，主进程孵化 `language_server` 时，子进程自动继承该配置。
@@ -162,7 +162,7 @@ git clone https://github.com/minoruLiu/antigravity-proxy-launcher.git "$env:LOCA
 
 ### ⚙️ 配置文件说明 (`config.ini`)
 
-通常情况下启动器会**自动识别**系统的当前代理。如果日常不开启“系统代理”开关，仅常驻后台代理端口，可修改 `config.ini`：
+通常情况下，启动器会 **自动识别** 系统的当前代理。如果日常不开启“系统代理”开关，仅常驻后台代理端口，可修改 `config.ini`：
 
 ```ini
 [proxy]
